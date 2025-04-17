@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hava Durumu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="weather-container">
+
+        <!-- Arama Alanı -->
+        <div class="search-area-wrapper"> <!-- Wrapper eklendi -->
+            <div class="search-area">
+                <input type="text" id="city-input" placeholder="Şehir adı girin..." autocomplete="off"> <!-- autocomplete kapatıldı -->
+                <button id="search-button">Ara</button>
+            </div>
+            <!-- <<< YENİ: Öneri Listesi Alanı >>> -->
+            <div id="suggestions-list" class="suggestions-list"></div>
+        </div>
+
+        <!-- Ana Bilgi Alanı -->
+        <div class="current-info" id="current-info-area">
+             <!-- ... (içerik aynı) ... -->
+             <div id="city-name">--</div>
+             <div id="current-temp">--°</div>
+             <div class="description-icon" id="description-icon-area">
+                 <img id="current-icon" src="" alt="weather icon" style="display: none;">
+                 <span id="current-desc">---</span>
+             </div>
+             <div id="min-max-temp">D: --° Y: --°</div>
+        </div>
+
+        <!-- Tahmin Blokları Alanı -->
+        <div class="forecast-area">
+            <!-- Saatlik Tahmin Bloğu -->
+            <div class="forecast-block hourly-block" id="hourly-forecast-block">
+                 <!-- ... (içerik aynı) ... -->
+                 <h2>Sonraki Saatler</h2>
+                 <div class="hourly-items scrollable" id="hourly-items-container">
+                      <div class="loading-placeholder">Yükleniyor...</div>
+                 </div>
+            </div>
+            <!-- Günlük Tahmin Bloğu -->
+            <div class="forecast-block daily-block" id="daily-forecast-block">
+                 <!-- ... (içerik aynı) ... -->
+                 <h2>5 Günlük Tahmin</h2>
+                 <div class="daily-items" id="daily-items-container">
+                     <div class="loading-placeholder">Yükleniyor...</div>
+                 </div>
+            </div>
+        </div>
+         <!-- Hata Mesajı Alanı -->
+         <div id="error-message" class="error-message" style="display: none;"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

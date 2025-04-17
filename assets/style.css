@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: white;
+    background-color: #333;
+    background-size: cover; /* <<< RESMİ KAPLA >>> */
+    background-position: center center; /* <<< ORTALA >>> */
+    background-repeat: no-repeat;
+    background-attachment: fixed; /* <<< KAYDIRMAYINCA SABİT KALSIN >>> */
+    height: 100vh;
+    transition: background-image 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
+}
+
+.weather-container {
+    width: 100%;
+    max-width: 420px;
+    padding: 20px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Arama Alanı ve Öneriler */
+.search-area-wrapper { /* <<< Yeni Wrapper >>> */
+    position: relative; /* Öneri listesini buna göre konumlandıracağız */
+    z-index: 10; /* Diğer elemanların üzerinde kalsın */
+}
+
+.search-area {
+    display: flex;
+    gap: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 8px;
+    border-radius: 8px;
+}
+
+#city-input {
+    flex-grow: 1; padding: 8px 12px; border: none; border-radius: 6px; font-size: 1rem; background-color: rgba(255, 255, 255, 0.8); color: #333;
+}
+#city-input:focus { outline: none; box-shadow: 0 0 0 2px rgba(0, 122, 255, 0.5); }
+#search-button { padding: 8px 15px; background-color: #007AFF; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; font-weight: 500; transition: background-color 0.2s ease; }
+#search-button:hover { background-color: #0056b3; }
+
+/* <<< YENİ: Öneri Listesi Stilleri >>> */
+.suggestions-list {
+    position: absolute; /* Wrapper'a göre konumlan */
+    top: 100%; /* Arama kutusunun hemen altına */
+    left: 0;
+    right: 0;
+    background-color: rgba(50, 50, 50, 0.95); /* Hafif yarı şeffaf koyu */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: none; /* Üst kenarlık olmasın */
+    border-radius: 0 0 8px 8px; /* Alt köşeleri yuvarlat */
+    max-height: 200px; /* Maksimum yükseklik */
+    overflow-y: auto; /* Gerekirse kaydırma çubuğu */
+    z-index: 9; /* Arama kutusunun altında ama diğerlerinin üstünde */
+    display: none; /* Başlangıçta gizli */
+}
+
+.suggestion-item {
+    padding: 10px 15px;
+    cursor: pointer;
+    color: #E0E0E0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background-color 0.15s ease;
+}
+.suggestion-item:last-child {
+    border-bottom: none;
+}
+.suggestion-item:hover {
+    background-color: rgba(80, 80, 80, 0.9);
+    color: white;
+}
+/* <<< Öneri Stilleri Sonu >>> */
+
+
+/* Ana Bilgi Alanı */
+.current-info { text-align: center; padding: 20px 0; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6); }
+#city-name { font-size: 2.2rem; font-weight: 500; margin-bottom: 5px; }
+#current-temp { font-size: 5rem; font-weight: 300; margin: 0; line-height: 1; }
+.description-icon { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 5px; margin-bottom: 10px; }
+#current-icon { width: 40px; height: 40px; display: block; }
+#current-desc { font-size: 1.25rem; font-weight: 500; }
+#min-max-temp { font-size: 1.1rem; font-weight: 400; color: #E0E0E0; }
+
+/* Tahmin Alanı */
+.forecast-area { display: flex; flex-direction: column; gap: 15px; }
+.forecast-block { background-color: rgba(40, 40, 40, 0.75); border-radius: 15px; padding: 15px; box-sizing: border-box; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+.forecast-block h2 { margin: 0 0 10px 5px; font-size: 0.9rem; font-weight: 500; color: #a0a0a0; text-transform: uppercase; }
+
+/* Saatlik Tahmin */
+.hourly-items { display: flex; overflow-x: auto; padding-bottom: 10px; }
+.hourly-items.scrollable::-webkit-scrollbar { height: 10px; }
+.hourly-items.scrollable::-webkit-scrollbar-thumb { background-color: rgba(255, 255, 255, 0.3); border-radius: 10px; }
+.hourly-item { display: flex; flex-direction: column; align-items: center; min-width: 70px; text-align: center; }
+.hourly-item .time { font-size: 0.9rem; font-weight: 500; margin-bottom: 5px; }
+.hourly-item img { width: 45px; height: 45px; margin-bottom: 5px; }
+.hourly-item .temp { font-size: 1.1rem; font-weight: 200; }
+
+/* Günlük Tahmin */
+.daily-items { display: flex; flex-direction: column; }
+.daily-item { display: grid; grid-template-columns: 3fr auto 1fr 1fr; align-items: center; padding: 8px 5px; gap: 15px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
+.daily-item:last-child { border-bottom: none; }
+.daily-item .day { font-size: 1.1rem; font-weight: 500; text-align: left; }
+.daily-item img { width: 35px; height: 35px; }
+.daily-item .temp-min { font-size: 1.1rem; color: #a0a0a0; text-align: right; }
+.daily-item .temp-max { font-size: 1.1rem; font-weight: 500; text-align: right; }
+
+/* Yükleniyor ve Hata */
+.loading-placeholder { text-align: center; padding: 20px; color: #a0a0a0; font-style: italic; }
+.error-message { background-color: rgba(255, 0, 0, 0.7); color: white; padding: 10px 15px; border-radius: 8px; text-align: center; margin-top: 10px; }
